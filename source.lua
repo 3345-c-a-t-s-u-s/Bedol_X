@@ -63,7 +63,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 	
 	decs = decs or ""
 	name = name or "Bedol Hub | "..tostring(game.Name)
-	SizeConfix = SizeConfix or UDim2.new(0.35, 50,0.35, 35)
+	SizeConfix = SizeConfix or UDim2.new(0.35, 0, 0.4, 10)
 	
 	local ScreenGui = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
