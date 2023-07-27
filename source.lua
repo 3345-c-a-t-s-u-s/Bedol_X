@@ -60,11 +60,11 @@ local Bedol = {}
 function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 	local Colleection = {}
 	local Windows = {}
-	
+
 	decs = decs or ""
 	name = name or "Bedol Hub | "..tostring(game.Name)
 	SizeConfix = SizeConfix or UDim2.new(0.35, 0, 0.4, 10)
-	
+
 	local ScreenGui = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
@@ -79,11 +79,11 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 	local Loaded = Instance.new("Frame")
 	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 	local MovementFrame = Instance.new("Frame")
-	
+
 	UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 		TabButtons.CanvasSize  = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y)
 	end)
-	
+
 	ScreenGui.Parent = Core
 	ScreenGui.IgnoreGuiInset = true
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
@@ -219,10 +219,10 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 	MovementFrame.BorderSizePixel = 0
 	MovementFrame.Size = UDim2.new(1, 0, 0.150000006, 0)
 	MovementFrame.ZIndex = 10
-	
+
 	function Windows:Tab<Frame...>(Name:string)
 		local Tab = {}
-		
+
 		local Button = Instance.new("Frame")
 		local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 		local UICorner = Instance.new("UICorner")
@@ -294,7 +294,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 		DropShadow.ImageTransparency = 0.500
 		DropShadow.ScaleType = Enum.ScaleType.Slice
 		DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
-		
+
 		Input.Name = "Input"
 		Input.Parent = Button
 		Input.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -307,15 +307,15 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 		Input.TextColor3 = Color3.fromRGB(0, 0, 0)
 		Input.TextSize = 14.000
 		Input.TextTransparency = 1.000
-		
+
 		local Tab_Frame_Preview = Instance.new("ScrollingFrame")
 		local UIListLayout = Instance.new("UIListLayout")
-		
+
 		UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 			Tab_Frame_Preview.CanvasSize  = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y)
 		end)
 
-		
+
 		Tab_Frame_Preview.Name = "Tab_Frame_Preview"
 		Tab_Frame_Preview.Parent = Frame
 		Tab_Frame_Preview.Active = true
@@ -328,14 +328,14 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 		Tab_Frame_Preview.ZIndex = 6
 		Tab_Frame_Preview.ScrollBarThickness = 2
 		Tab_Frame_Preview.CanvasSize = UDim2.new(0,0,5,1000)
-		
+
 		UIListLayout.Parent = Tab_Frame_Preview
 		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout.Padding = UDim.new(0, 7)
-		
+
 		local eventFire = Instance.new('BindableEvent',Button)
-		
+
 		local function ButtonToggle(val)
 			if val then
 				Tab_Frame_Preview.Visible = true
@@ -345,20 +345,20 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 				Tween(Button,TweenInfo.new(0.3),{BackgroundColor3 = Color3.fromRGB(40, 40, 40)})
 			end
 		end
-		
+
 		if #Colleection == 0 then
 			ButtonToggle(true)
 		else
 			ButtonToggle(false)
 		end
-		
+
 		table.insert(Colleection,{
 			Tab_Frame_Preview,
 			['event'] = eventFire,
 		})
-		
+
 		eventFire.Event:Connect(ButtonToggle)
-		
+
 		Input.MouseButton1Click:Connect(function()
 			Create_Ripple(Input) 
 			for i,v in ipairs(Colleection) do
@@ -371,7 +371,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 				end
 			end
 		end)
-		
+
 		function Tab:AddTitle<L...>(stringMain:string)
 			local Title = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -381,7 +381,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 
 			Title.Name = "Title"
 			Title.Parent = Tab_Frame_Preview
-			Title.BackgroundColor3 = Color3.fromRGB(57, 57, 57)
+			Title.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Title.BorderSizePixel = 0
 			Title.Size = UDim2.new(0.949999988, 0, 0.5, 0)
@@ -425,16 +425,16 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			DropShadow.ImageTransparency = 0.500
 			DropShadow.ScaleType = Enum.ScaleType.Slice
 			DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
-			
+
 			local Hook = {}
-			
+
 			function Hook:Set(...)
 				Title_2.Text = (...) 
 			end
-			
+
 			return Hook
 		end
-		
+
 		function Tab:NewButton<button...>(name:string,callback:FunctionalTest)
 			callback = callback or function() end
 			local Button = Instance.new("Frame")
@@ -523,12 +523,12 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			Input.TextColor3 = Color3.fromRGB(0, 0, 0)
 			Input.TextSize = 14.000
 			Input.TextTransparency = 1.000
-			
+
 			Input.MouseButton1Click:Connect(function()
 				Create_Ripple(Input)
 				callback()
 			end)
-			
+
 			local Hook = {}
 			function Hook:Fire()
 				Create_Ripple(Input)
@@ -536,7 +536,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			end
 			return Hook
 		end
-		
+
 		function Tab:NewToggle<BOOLEAN...>(name:string,info:boolean,callback)
 			callback = callback or function() end
 			info = info or false
@@ -642,7 +642,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			IconToggle.Size = UDim2.new(0.949999988, 0, 0.949999988, 0)
 			IconToggle.ZIndex = 7
 			IconToggle.Image = "rbxassetid://10002398990"
-			
+
 			local function SetToggle(val)
 				if val then
 					IconToggle.Image = "rbxassetid://3944680095"
@@ -663,40 +663,40 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 				end
 			end
 			SetToggle(info)
-			
+
 			Input.MouseButton1Click:Connect(function()
 				Create_Ripple(Input)
 				info = not info
 				SetToggle(info)
 				callback(info)
 			end)
-			
+
 			local Hook = {}
-			
+
 			function Hook:Set(val)
 				val = val or false
 				info = val
 				SetToggle(info)
 				callback(info)
 			end
-			
+
 			return Hook
 		end
-		
+
 		function Tab:NewKeybind<Key...>(name:string,info:Enum.KeyCode,callback)
 			info = info or "None"
 			callback = callback or function() end
-			
+
 			local function Converter(ket)
 				if typeof(ket) ~= "EnumItem" then
 					return "None"
 				else
 					local name = ket.Name
-					
+
 					return name
 				end
 			end
-			
+
 			local Keybind = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 			local UICorner = Instance.new("UICorner")
@@ -812,7 +812,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 				Binding =  true
 				Create_Ripple(Input)
 				local targetloadded = nil
-				
+
 				local hook = UIS.InputBegan:Connect(function(is)
 					if is.KeyCode ~= Enum.KeyCode.Unknown then
 						targetloadded = is.KeyCode
@@ -831,7 +831,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 				return
 			end)
 			local Hook = {}
-			
+
 			function Hook:Set(val)
 				if not val then
 					return
@@ -839,10 +839,10 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 				Bind.Text = Converter(val)
 				callback(val)
 			end
-			
+
 			return Hook
 		end
-		
+
 		function Tab:NewSlider<number...>(name:string,Min:number,Max:number,callback)
 			Min = Min or 1
 			Max = Max or 100
@@ -947,9 +947,9 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			VALUE.TextSize = 14.000
 			VALUE.TextWrapped = true
 			VALUE.TextXAlignment = Enum.TextXAlignment.Right
-			
+
 			local danger = false
-			
+
 			Showed.InputBegan:Connect(function(Input)
 				if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
 					danger = true
@@ -961,7 +961,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 					danger = false
 				end
 			end)
-			
+
 			UIS.InputChanged:Connect(function(Input)
 				if danger and Input.UserInputType == Enum.UserInputType.MouseMovement then
 					local SizeScale = math.clamp(((Input.Position.X - Showed.AbsolutePosition.X) / Showed.AbsoluteSize.X), 0, 1)
@@ -972,9 +972,9 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 					callback(Value)
 				end
 			end)
-			
+
 			local Hook = {}
-			
+
 			function Hook:Set(val)
 				val = tonumber(val)
 				if val then
@@ -985,14 +985,14 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 					callback(tonumber(val))
 				end
 			end
-			
+
 			return Hook;
 		end
-		
+
 		function Tab:NewDropdown<assets...>(name:string,info:{string},callback)
 			info = info or {}
 			callback = callback or function() end
-			
+
 			local Dropdown = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 			local UICorner = Instance.new("UICorner")
@@ -1014,7 +1014,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			local DropShadow_2 = Instance.new("ImageLabel")
 			local ScrollingDropdown = Instance.new("ScrollingFrame")
 			local UIListLayout_2 = Instance.new("UIListLayout")
-			
+
 			UIListLayout_2:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 				ScrollingDropdown.CanvasSize  = UDim2.new(0,0,0,UIListLayout_2.AbsoluteContentSize.Y)
 			end)
@@ -1196,13 +1196,13 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 			UIListLayout_2.Padding = UDim.new(0,1)
-			
+
 			local function Hold(to)
 				local currenttime = 0.5
 				if to then
 					Tween(Main,TweenInfo.new(currenttime),{BackgroundTransparency = 0})
 					Tween(DropShadow_2,TweenInfo.new(currenttime),{ImageTransparency = 0.5})
-					
+
 					for i,v : TextButton in ipairs(ScrollingDropdown:GetChildren()) do
 						if v:isA('TextButton') then
 							local shadow = v:FindFirstChildWhichIsA('ImageLabel')
@@ -1233,7 +1233,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 					end
 				end
 			end
-			
+
 			local function DrpdownToggle(val)
 				if val then
 					Tween(IndexIcon,TweenInfo.new(0.5),{ImageColor3 = Color3.fromRGB(255, 0, 4)})
@@ -1249,15 +1249,15 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 					end
 				end
 			end
-			
+
 			local toggle_val = false
-			
+
 			Input.MouseButton1Click:Connect(function()
 				Create_Ripple(Input)
 				toggle_val = not toggle_val
 				DrpdownToggle(toggle_val)
 			end)
-			
+
 			local function CrButton()
 				local TextButton = Instance.new("TextButton")
 				local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -1276,24 +1276,24 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 				TextButton.TextSize = 14.000
 				TextButton.TextWrapped = true
 				TextButton.AutoButtonColor = false
-				
+
 				UIAspectRatioConstraint.Parent = TextButton
 				UIAspectRatioConstraint.AspectRatio = 7.000
 				UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
 
 				UICorner.CornerRadius = UDim.new(0.100000001, 0)
 				UICorner.Parent = TextButton
-				
+
 				TextButton.MouseEnter:Connect(function()
 					Tween(TextButton,TweenInfo.new(0.3),{BackgroundColor3 = Color3.fromRGB(68, 68, 68)})
 				end)
 				TextButton.MouseLeave:Connect(function()
 					Tween(TextButton,TweenInfo.new(0.3),{BackgroundColor3 = Color3.fromRGB(39, 39, 39)})
 				end)
-				
+
 				return TextButton
 			end
-			
+
 			local function AddresButton()
 				for i,v in ipairs(info) do
 					local nameMain = tostring(v)
@@ -1306,7 +1306,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 					end)
 				end
 			end
-			
+
 			local function ref()
 				for i,v : TextButton in ipairs(ScrollingDropdown:GetChildren()) do
 					if v:isA('TextButton') then
@@ -1315,27 +1315,27 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 				end
 				AddresButton()
 			end
-			
+
 			ref()
 			local Hook = {}
-			
+
 			function Hook:Refresh(infonew)
 				if infonew then
 					info = infonew
 					ref()
 				end
 			end
-			
+
 			function Hook:Set(name)
 				callback(name)
 				Data_Info.Text = tostring(name)
 			end
-			
+
 			return Hook
 		end
 		return Tab
 	end
-	
+
 	local dragToggle = nil
 	local dragStart = nil
 	local startPos = nil
@@ -1367,9 +1367,9 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			end
 		end
 	end)
-	
+
 	Tween(Frame,TweenInfo.new(2,Enum.EasingStyle.Quint),{Position = UDim2.new(0.5, 0, 0.5, 0)})
-	
+
 	return Windows;
 end
 
