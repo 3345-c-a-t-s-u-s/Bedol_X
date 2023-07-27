@@ -1124,7 +1124,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			Title.Size = UDim2.new(0.499818146, 0, 0.49999997, 0)
 			Title.ZIndex = 6
 			Title.Font = Enum.Font.GothamMedium
-			Title.Text = "Dropdown"
+			Title.Text = name or "Dropdown"
 			Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Title.TextScaled = true
 			Title.TextSize = 14.000
