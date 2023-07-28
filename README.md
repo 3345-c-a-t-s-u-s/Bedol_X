@@ -14,6 +14,10 @@ local window = UI:Window("Bedol Hub UI","UI Test by me")
 	size ui
 ]]
 
+-- set key toggle
+window.TOGGLE_KEY = Enum.KeyCode.X
+----------------------------
+
 local tab = window:Tab('Tabd')
 local tab = window:Tab('Tabd2')
 
