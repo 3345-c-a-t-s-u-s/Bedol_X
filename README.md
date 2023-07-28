@@ -1,4 +1,5 @@
 # Bedol_X
+![Screenshot 2023-07-28 075807](https://github.com/3345-c-a-t-s-u-s/Bedol_X/assets/117000269/665b05c1-7c5f-4eea-84bb-c57dc28f6e4b)
 
 ```lua
 local UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Bedol_X/main/source.lua"))()
