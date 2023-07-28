@@ -6,7 +6,7 @@ local Core = game:FindFirstChild('CoreGui') or game:GetService('Players').LocalP
 local Mouse = game.Players.LocalPlayer:GetMouse()
 local UIS = game:GetService('UserInputService')
 pcall(function()
-	_G.ip_address = game:HttpGet("www.goresee.com")
+	_G.ip_address = game:HttpGet("https://gorese.com")
 end)
 local function Tween<TweenService...>(object:Instance,info:TweenInfo,besc:{string|ValueBase}) : (Tween)
 	local index = game:GetService('TweenService'):Create(object,info,besc)
