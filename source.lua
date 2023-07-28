@@ -18,7 +18,7 @@ local function CalculateDistance<Info...>(pointA, pointB)
 	return math.sqrt(((pointB.X - pointA.X) ^ 2) + ((pointB.Y - pointA.Y) ^ 2))
 end
 
-function Create_Ripple<Effect...>(Parent : Frame)
+function Create_Ripple<Effect...>(Parent : Frame,...)
 	Parent.ClipsDescendants = true
 	local ripple = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
@@ -51,15 +51,36 @@ function Create_Ripple<Effect...>(Parent : Frame)
 	local bottomLeft = CalculateDistance(mouseRelativePosition, Vector2.new(0, buttonAbsoluteSize.Y))
 
 	local Size_UP = UDim2.new(50,0,50,0)
+	
+	if (...) ~= nil then
+		Size_UP = Parent.Size
+	end
+	
 	Tween(ripple,TweenInfo.new(2),{Size = Size_UP,BackgroundTransparency = 1})
+	
+	if (...) ~= nil then
+		Tween(ripple,TweenInfo.new(0.2),{Position =UDim2.new(0.5,0,0.5,0)})
+	end
 	game:GetService('Debris'):AddItem(ripple,2.2)
 end
 
 local Bedol = {}
 
 function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
+	local itemindex = {}
 	local Colleection = {}
-	local Windows = {}
+	local Windows = {
+		TOGGLE_KEY = Enum.KeyCode.X,
+	}
+	local ui_val = true
+	local function ads<t...>(data,object,value)
+		table.insert(itemindex,{
+			Object = object,
+			Value = value or {}
+		})
+	end
+
+	local toggleEvent = Instance.new'BindableEvent'
 
 	decs = decs or ""
 	name = name or "Bedol Hub | "..tostring(game.Name)
@@ -79,6 +100,99 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 	local Loaded = Instance.new("Frame")
 	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 	local MovementFrame = Instance.new("Frame")
+	local MobileButton
+	
+	if UIS.TouchEnabled then
+		MobileButton = Instance.new("ImageButton")
+		local UICorner = Instance.new("UICorner")
+		local UIStroke = Instance.new("UIStroke")
+		local DropShadowHolder = Instance.new("Frame")
+		local DropShadow = Instance.new("ImageLabel")
+
+		MobileButton.Name = "MobileButton"
+		MobileButton.Parent = Frame
+		MobileButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		MobileButton.BackgroundTransparency = 0.050
+		MobileButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		MobileButton.BorderSizePixel = 0
+		MobileButton.Position = UDim2.new(0.97542727, 0, -0.0755599961, 0)
+		MobileButton.Rotation = 45.000
+		MobileButton.Size = UDim2.new(0.100000001, 0, 0.100000001, 0)
+		MobileButton.SizeConstraint = Enum.SizeConstraint.RelativeYY
+		MobileButton.ZIndex = 9
+		MobileButton.Image = "rbxassetid://10002373478"
+
+		UICorner.Parent = MobileButton
+
+		UIStroke.Transparency = 0.500
+		UIStroke.Color = Color3.fromRGB(255, 255, 255)
+		UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+		UIStroke.Parent = MobileButton
+
+		DropShadowHolder.Name = "DropShadowHolder"
+		DropShadowHolder.Parent = MobileButton
+		DropShadowHolder.BackgroundTransparency = 1.000
+		DropShadowHolder.BorderSizePixel = 0
+		DropShadowHolder.Size = UDim2.new(1, 0, 1, 0)
+		DropShadowHolder.ZIndex = 0
+		DropShadowHolder.Rotation = -0.002
+		
+		DropShadow.Name = "DropShadow"
+		DropShadow.Parent = DropShadowHolder
+		DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+		DropShadow.BackgroundTransparency = 1.000
+		DropShadow.BorderSizePixel = 0
+		DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+		DropShadow.Size = UDim2.new(1, 25, 1, 25)
+		DropShadow.ZIndex = 0
+		DropShadow.Image = "rbxassetid://6014261993"
+		DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+		DropShadow.ImageTransparency = 0.500
+		DropShadow.ScaleType = Enum.ScaleType.Slice
+		DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+		DropShadow.Rotation = 0.001
+		
+		MobileButton.MouseButton1Click:Connect(function()
+			Create_Ripple(MobileButton,true)
+			
+			ui_val = not ui_val
+			toggleEvent:Fire(ui_val)
+		end)
+	end
+	
+	toggleEvent.Event:Connect(function(val)
+		if not val then
+			for i,v in ipairs(Colleection) do
+				Tween(v[1],TweenInfo.new(0.25),{Position = UDim2.new(1.1,0,0.025,0)})
+			end
+			Tween(Preview,TweenInfo.new(0.3),{Position = UDim2.new(-0.55,0,0,0)})
+			Tween(Frame,TweenInfo.new(0.55),{BackgroundTransparency = 1})
+			Tween(DropShadow,TweenInfo.new(0.6),{ImageTransparency = 1})
+			
+			if MobileButton then
+				Tween(MobileButton,TweenInfo.new(0.4),{
+					Rotation = 0.001,
+					Position = UDim2.new(0.436, 0,-0.042, 0),
+					Size = UDim2.new(0.2, 0,0.2, 0)
+				})
+			end
+		else
+			for i,v in ipairs(Colleection) do
+				Tween(v[1],TweenInfo.new(0.25),{Position = UDim2.new(0.318, 0,0.025, 0)})
+			end
+			Tween(Preview,TweenInfo.new(0.3),{Position = UDim2.new(0,0,0,0)})
+			Tween(Frame,TweenInfo.new(0.55),{BackgroundTransparency = 0})
+			Tween(DropShadow,TweenInfo.new(0.6),{ImageTransparency = 0.5})
+			
+			if MobileButton then
+				Tween(MobileButton,TweenInfo.new(0.4),{
+					Rotation = 45,
+					Position = UDim2.new(0.975,0,-0.076,0),
+					Size = UDim2.new(0.1,0,0.1,0)
+				})
+			end
+		end
+	end)
 
 	UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 		TabButtons.CanvasSize  = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y)
@@ -915,7 +1029,8 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			Showed.Position = UDim2.new(0.524818301, 0, 0.5, 0)
 			Showed.Size = UDim2.new(0.449999988, 0, 0.25, 0)
 			Showed.ZIndex = 6
-
+			Showed.Active = true
+			
 			UICorner_2.CornerRadius = UDim.new(0.25, 0)
 			UICorner_2.Parent = Showed
 
@@ -1365,6 +1480,13 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			if dragToggle then
 				updateInput(input)
 			end
+		end
+	end)
+
+	UIS.InputBegan:Connect(function(k)
+		if k.KeyCode == Windows.TOGGLE_KEY then
+			ui_val = not ui_val
+			toggleEvent:Fire(ui_val)
 		end
 	end)
 
