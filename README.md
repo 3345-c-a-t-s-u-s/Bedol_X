@@ -1,4 +1,4 @@
-# Bedol_X
+# adakkakkskakkasasddada
 ![Screenshot 2023-07-28 075807](https://github.com/3345-c-a-t-s-u-s/Bedol_X/assets/117000269/665b05c1-7c5f-4eea-84bb-c57dc28f6e4b)
 
 ```lua
