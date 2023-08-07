@@ -24,7 +24,11 @@ window.TOGGLE_KEY = Enum.KeyCode.X
 
 -- create documentation
 
-window:Documentation("Documentation","Documentation Test UI \n BBBBBBBBBBBBBBBBBB \n you're good man right \n eaooooo","Click me!")
+window:Documentation(
+	"Documentation",
+	"Documentation Test UI \n Text here \n text \n text",
+	"Click me!"
+)
 
 ----------------------------
 
