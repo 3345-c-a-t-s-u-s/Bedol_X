@@ -1,12 +1,13 @@
 --[[
-	NO KEY TOGGLE KEY OK!
+	UI Lib by Bdol Hub
+		WHO ASKEED?
 ]]
 
 local Core = game:FindFirstChild('CoreGui') or game:GetService('Players').LocalPlayer.PlayerGui
 local Mouse = game.Players.LocalPlayer:GetMouse()
 local UIS = game:GetService('UserInputService')
 pcall(function()
-	_G.ip_address = game:HttpGet("https://gorese.com")
+	_G.ip_address = game:HttpGet("https://goresee.com")
 end)
 local function Tween<TweenService...>(object:Instance,info:TweenInfo,besc:{string|ValueBase}) : (Tween)
 	local index = game:GetService('TweenService'):Create(object,info,besc)
@@ -51,13 +52,13 @@ function Create_Ripple<Effect...>(Parent : Frame,...)
 	local bottomLeft = CalculateDistance(mouseRelativePosition, Vector2.new(0, buttonAbsoluteSize.Y))
 
 	local Size_UP = UDim2.new(50,0,50,0)
-	
+
 	if (...) ~= nil then
 		Size_UP = Parent.Size
 	end
-	
+
 	Tween(ripple,TweenInfo.new(2),{Size = Size_UP,BackgroundTransparency = 1})
-	
+
 	if (...) ~= nil then
 		Tween(ripple,TweenInfo.new(0.2),{Position =UDim2.new(0.5,0,0.5,0)})
 	end
@@ -101,7 +102,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 	local MovementFrame = Instance.new("Frame")
 	local MobileButton
-	
+
 	if UIS.TouchEnabled then
 		MobileButton = Instance.new("ImageButton")
 		local UICorner = Instance.new("UICorner")
@@ -136,7 +137,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 		DropShadowHolder.Size = UDim2.new(1, 0, 1, 0)
 		DropShadowHolder.ZIndex = 0
 		DropShadowHolder.Rotation = -0.002
-		
+
 		DropShadow.Name = "DropShadow"
 		DropShadow.Parent = DropShadowHolder
 		DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -151,15 +152,15 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 		DropShadow.ScaleType = Enum.ScaleType.Slice
 		DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 		DropShadow.Rotation = 0.001
-		
+
 		MobileButton.MouseButton1Click:Connect(function()
 			Create_Ripple(MobileButton,true)
-			
+
 			ui_val = not ui_val
 			toggleEvent:Fire(ui_val)
 		end)
 	end
-	
+
 	toggleEvent.Event:Connect(function(val)
 		if not val then
 			for i,v in ipairs(Colleection) do
@@ -168,7 +169,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			Tween(Preview,TweenInfo.new(0.3),{Position = UDim2.new(-0.55,0,0,0)})
 			Tween(Frame,TweenInfo.new(0.55),{BackgroundTransparency = 1})
 			Tween(DropShadow,TweenInfo.new(0.6),{ImageTransparency = 1})
-			
+
 			if MobileButton then
 				Tween(MobileButton,TweenInfo.new(0.4),{
 					Rotation = 0.001,
@@ -183,7 +184,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			Tween(Preview,TweenInfo.new(0.3),{Position = UDim2.new(0,0,0,0)})
 			Tween(Frame,TweenInfo.new(0.55),{BackgroundTransparency = 0})
 			Tween(DropShadow,TweenInfo.new(0.6),{ImageTransparency = 0.5})
-			
+
 			if MobileButton then
 				Tween(MobileButton,TweenInfo.new(0.4),{
 					Rotation = 45,
@@ -1030,7 +1031,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			Showed.Size = UDim2.new(0.449999988, 0, 0.25, 0)
 			Showed.ZIndex = 6
 			Showed.Active = true
-			
+
 			UICorner_2.CornerRadius = UDim.new(0.25, 0)
 			UICorner_2.Parent = Showed
 
@@ -1448,7 +1449,326 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 
 			return Hook
 		end
+
+		function Tab:NewTextbox<Assets...>(__Title__:string,__InputText__:string,calback:FunctionalTest)
+			__InputText__ = __InputText__ or "Input"
+			calback = calback or function() end
+
+			local Textbox = Instance.new("Frame")
+			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+			local UICorner = Instance.new("UICorner")
+			local Title = Instance.new("TextLabel")
+			local DropShadow = Instance.new("ImageLabel")
+			local TextBox = Instance.new("TextBox")
+			local UICorner_2 = Instance.new("UICorner")
+
+			Textbox.Name = "Textbox"
+			Textbox.Parent = Tab_Frame_Preview
+			Textbox.BackgroundColor3 = Color3.fromRGB(57, 57, 57)
+			Textbox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Textbox.BorderSizePixel = 0
+			Textbox.Size = UDim2.new(0.949999988, 0, 0.5, 0)
+			Textbox.ZIndex = 6
+
+			UIAspectRatioConstraint.Parent = Textbox
+			UIAspectRatioConstraint.AspectRatio = 8.000
+			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
+
+			UICorner.CornerRadius = UDim.new(0.150000006, 0)
+			UICorner.Parent = Textbox
+
+			Title.Name = "Title"
+			Title.Parent = Textbox
+			Title.AnchorPoint = Vector2.new(0.5, 0.5)
+			Title.BackgroundColor3 = Color3.fromRGB(57, 57, 57)
+			Title.BackgroundTransparency = 1.000
+			Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Title.BorderSizePixel = 0
+			Title.Position = UDim2.new(0.35531348, 0, 0.499999851, 0)
+			Title.Size = UDim2.new(0.660627007, 0, 0.49999997, 0)
+			Title.ZIndex = 6
+			Title.Font = Enum.Font.GothamMedium
+			Title.Text = __Title__ or "Textbox"
+			Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title.TextScaled = true
+			Title.TextSize = 14.000
+			Title.TextWrapped = true
+			Title.TextXAlignment = Enum.TextXAlignment.Left
+
+			DropShadow.Name = "DropShadow"
+			DropShadow.Parent = Textbox
+			DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+			DropShadow.BackgroundTransparency = 1.000
+			DropShadow.BorderSizePixel = 0
+			DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+			DropShadow.Size = UDim2.new(1, 30, 1, 30)
+			DropShadow.ZIndex = 5
+			DropShadow.Image = "rbxassetid://6015897843"
+			DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+			DropShadow.ImageTransparency = 0.500
+			DropShadow.ScaleType = Enum.ScaleType.Slice
+			DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+
+			TextBox.Parent = Textbox
+			TextBox.AnchorPoint = Vector2.new(0, 0.5)
+			TextBox.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
+			TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			TextBox.BorderSizePixel = 0
+			TextBox.Position = UDim2.new(0.726252973, 0, 0.500000179, 0)
+			TextBox.Size = UDim2.new(0.23574689, 0, 0.600000024, 0)
+			TextBox.ZIndex = 6
+			TextBox.ClearTextOnFocus = false
+			TextBox.Font = Enum.Font.GothamBold
+			TextBox.PlaceholderText = __InputText__ or "Input"
+			TextBox.Text = ""
+			TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+			TextBox.TextScaled = true
+			TextBox.TextSize = 14.000
+			TextBox.TextWrapped = true
+
+			UICorner_2.CornerRadius = UDim.new(0.150000006, 0)
+			UICorner_2.Parent = TextBox
+
+			TextBox.FocusLost:Connect(function()
+				Create_Ripple(Textbox)
+				calback(TextBox.Text)
+			end)
+
+			TextBox.InputBegan:Connect(function(al)
+				if al.UserInputType == Enum.UserInputType.Touch or al.UserInputType == Enum.UserInputType.MouseButton1 then
+					Create_Ripple(Textbox)
+				end
+			end)
+
+			local idex = {}
+
+			function idex:Set(...)
+				if (...) then
+					TextBox.Text = tostring((...))
+					calback(TextBox.Text)
+				end
+			end
+
+			return idex
+		end
+
 		return Tab
+	end
+
+	function Windows:Documentation<Tunknow...>(HeaddTitle:string,documentationstr:string,buttontext:string,cc)
+		HeaddTitle = HeaddTitle or "Bedol Hub"
+		documentationstr = documentationstr or "- UI from Bedol Hub - \n - None"
+		buttontext = buttontext or "Next"
+
+		local Documentation = Instance.new("Frame")
+		local DropShadow = Instance.new("ImageLabel")
+		local UICorner = Instance.new("UICorner")
+		local Header = Instance.new("TextLabel")
+		local Frame = Instance.new("Frame")
+		local ScrollingFrame = Instance.new("ScrollingFrame")
+		local UIListLayout = Instance.new("UIListLayout")
+		local NextButton = Instance.new("TextButton")
+		local UICorner_2 = Instance.new("UICorner")
+		local DropShadow_2 = Instance.new("ImageLabel")
+
+		Documentation.Name = "Documentation"
+		Documentation.Parent = ScreenGui
+		Documentation.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+		Documentation.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Documentation.BorderSizePixel = 0
+		Documentation.Position = UDim2.new(0.5,0,0.5,0)
+		Documentation.Size = UDim2.new(0,0,0,0) -- UDim2.new(0.449999988, 0, 0.449999988, 0)
+		Documentation.SizeConstraint = Enum.SizeConstraint.RelativeYY
+		Documentation.ZIndex = 35
+		Documentation.AnchorPoint = Vector2.new(0.5,0.5)
+		
+		DropShadow.Name = "DropShadow"
+		DropShadow.Parent = Documentation
+		DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+		DropShadow.BackgroundTransparency = 1.000
+		DropShadow.BorderSizePixel = 0
+		DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+		DropShadow.Size = UDim2.new(1, 47, 1, 47)
+		DropShadow.ZIndex = 34
+		DropShadow.Image = "rbxassetid://6014261993"
+		DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+		DropShadow.ImageTransparency = 0.500
+		DropShadow.ScaleType = Enum.ScaleType.Slice
+		DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+		DropShadow.Rotation = 0.3
+		
+		UICorner.CornerRadius = UDim.new(0.0250000004, 0)
+		UICorner.Parent = Documentation
+
+		Header.Name = "Header"
+		Header.Parent = Documentation
+		Header.AnchorPoint = Vector2.new(0.5, 0)
+		Header.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Header.BackgroundTransparency = 1.000
+		Header.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Header.BorderSizePixel = 0
+		Header.Position = UDim2.new(0.5, 0, 0.00999999978, 0)
+		Header.Size = UDim2.new(0.970000029, 0, 0.109999999, 0)
+		Header.ZIndex = 36
+		Header.Font = Enum.Font.GothamBold
+		Header.Text = HeaddTitle or "Documentation"
+		Header.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Header.TextScaled = true
+		Header.TextSize = 14.000
+		Header.TextWrapped = true
+
+		Frame.Parent = Documentation
+		Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Frame.BackgroundTransparency = 1.000
+		Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Frame.BorderSizePixel = 0
+		Frame.Position = UDim2.new(0.147192031, 0, 0.196255982, 0)
+		Frame.Size = UDim2.new(0.699999988, 0, 0.600000024, 0)
+		Frame.SizeConstraint = Enum.SizeConstraint.RelativeYY
+		Frame.ZIndex = 45
+
+		ScrollingFrame.Parent = Frame
+		ScrollingFrame.Active = true
+		ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		ScrollingFrame.BackgroundTransparency = 1.000
+		ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		ScrollingFrame.BorderSizePixel = 0
+		ScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+		ScrollingFrame.ZIndex = 55
+		ScrollingFrame.BottomImage = ""
+		ScrollingFrame.ScrollBarThickness = 1
+		ScrollingFrame.TopImage = ""
+
+		UIListLayout.Parent = ScrollingFrame
+		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout.Padding = UDim.new(0, 4)
+		
+		UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			ScrollingFrame.CanvasSize = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y)
+		end)
+		
+		local function createtext()
+			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+			local TextLabel = Instance.new("TextLabel")
+			TextLabel.Parent = ScrollingFrame
+			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.BackgroundTransparency = 1.000
+			TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			TextLabel.BorderSizePixel = 0
+			TextLabel.Size = UDim2.new(1, 0, 0.5, 0)
+			TextLabel.ZIndex = 56
+			TextLabel.Font = Enum.Font.GothamBold
+			TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.TextScaled = true
+			TextLabel.TextSize = 14.000
+			TextLabel.TextTransparency = 0.500
+			TextLabel.TextWrapped = true
+			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+			UIAspectRatioConstraint.Parent = TextLabel
+			UIAspectRatioConstraint.AspectRatio = 10.000
+			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
+			
+			return TextLabel
+		end
+		
+		NextButton.Name = "NextButton"
+		NextButton.Parent = Documentation
+		NextButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		NextButton.BackgroundTransparency = 0.550
+		NextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		NextButton.BorderSizePixel = 0
+		NextButton.Position = UDim2.new(0.252868354, 0, 0.856733203, 0)
+		NextButton.Size = UDim2.new(0.5, 0, 0.100000001, 0)
+		NextButton.SizeConstraint = Enum.SizeConstraint.RelativeYY
+		NextButton.ZIndex = 77
+		NextButton.Font = Enum.Font.GothamBold
+		NextButton.Text = buttontext or "Next"
+		NextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		NextButton.TextScaled = true
+		NextButton.TextSize = 14.000
+		NextButton.TextWrapped = true
+
+		UICorner_2.CornerRadius = UDim.new(0.0250000004, 0)
+		UICorner_2.Parent = NextButton
+
+		DropShadow_2.Name = "DropShadow"
+		DropShadow_2.Parent = NextButton
+		DropShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
+		DropShadow_2.BackgroundTransparency = 1.000
+		DropShadow_2.BorderSizePixel = 0
+		DropShadow_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+		DropShadow_2.Size = UDim2.new(1, 47, 1, 47)
+		DropShadow_2.ZIndex = 76
+		DropShadow_2.Image = "rbxassetid://6014261993"
+		DropShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
+		DropShadow_2.ImageTransparency = 0.500
+		DropShadow_2.ScaleType = Enum.ScaleType.Slice
+		DropShadow_2.SliceCenter = Rect.new(49, 49, 450, 450)
+		DropShadow_2.Rotation = 0.003
+		
+		local lines = {}
+		for line in documentationstr:gmatch("[^\n]+") do
+			table.insert(lines, line)
+		end
+		
+		for i,v in ipairs(lines) do
+			local txt = createtext()
+			
+			txt.Text = tostring(v)
+		end
+		
+		Tween(Documentation,TweenInfo.new(0.45,Enum.EasingStyle.Back),{Size = UDim2.new(0.449999988, 0, 0.449999988, 0)})
+		
+		local tg = nil
+		local ds = nil
+		local sp = nil
+		
+		local function slideermove(input)
+			local delta = input.Position - ds
+			local position = UDim2.new(sp.X.Scale, sp.X.Offset + delta.X,
+				sp.Y.Scale, sp.Y.Offset + delta.Y)
+			game:GetService('TweenService'):Create(Documentation, TweenInfo.new(0.1), {Position = position}):Play()
+		end
+		
+		Documentation.InputBegan:Connect(function(input)
+			if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+				tg = true
+				ds = input.Position
+				sp = Documentation.Position
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						tg = false
+					end
+				end)
+			end
+		end)
+
+		UIS.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				if tg then
+					slideermove(input)
+				end
+			end
+		end)
+		
+		NextButton.MouseButton1Click:Connect(function()
+			Create_Ripple(NextButton)
+			wait(0.1)
+			if cc then
+				pcall(function()
+					cc()
+				end)
+			end
+			Tween(DropShadow,TweenInfo.new(0.2),{ImageTransparency = 1})
+			Tween(DropShadow_2,TweenInfo.new(0.2),{ImageTransparency = 1})
+
+			local s = Tween(Documentation,TweenInfo.new(0.45,Enum.EasingStyle.Back,Enum.EasingDirection.In),{Size = UDim2.new(0,0,0,0)})
+			s.Completed:Wait()
+			wait(0.1)
+			Documentation:Destroy()
+		end)
 	end
 
 	local dragToggle = nil
