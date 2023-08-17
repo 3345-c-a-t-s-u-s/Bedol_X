@@ -1,14 +1,12 @@
 --[[
 	UI Lib by Bdol Hub
-		WHO ASKEED?
 ]]
 
 local Core = game:FindFirstChild('CoreGui') or game:GetService('Players').LocalPlayer.PlayerGui
 local Mouse = game.Players.LocalPlayer:GetMouse()
 local UIS = game:GetService('UserInputService')
-pcall(function()
-	_G.ip_address = game:HttpGet("https://goresee.com")
-end)
+local KeyDec = true
+
 local function Tween<TweenService...>(object:Instance,info:TweenInfo,besc:{string|ValueBase}) : (Tween)
 	local index = game:GetService('TweenService'):Create(object,info,besc)
 	index:Play()
@@ -19,7 +17,7 @@ local function CalculateDistance<Info...>(pointA, pointB)
 	return math.sqrt(((pointB.X - pointA.X) ^ 2) + ((pointB.Y - pointA.Y) ^ 2))
 end
 
-function Create_Ripple<Effect...>(Parent : Frame,...)
+function Create_Ripple<Effect...>(Parent : Frame, ___)
 	Parent.ClipsDescendants = true
 	local ripple = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
@@ -53,26 +51,44 @@ function Create_Ripple<Effect...>(Parent : Frame,...)
 
 	local Size_UP = UDim2.new(50,0,50,0)
 
-	if (...) ~= nil then
+	if (___) ~= nil then
 		Size_UP = Parent.Size
 	end
 
 	Tween(ripple,TweenInfo.new(2),{Size = Size_UP,BackgroundTransparency = 1})
 
-	if (...) ~= nil then
+	if (___) ~= nil then
 		Tween(ripple,TweenInfo.new(0.2),{Position =UDim2.new(0.5,0,0.5,0)})
 	end
 	game:GetService('Debris'):AddItem(ripple,2.2)
 end
 
+local function GetTheme(name)
+	if tostring(name) == "Normal" then
+		return {
+			TabButtonEffect = Color3.fromRGB(161, 0, 5),
+			TextColorGB = Color3.fromRGB(255, 255, 255),
+			MainFrameBlackground = Color3.fromRGB(24, 24, 24),
+			PreviewFrameColor = Color3.fromRGB(57, 57, 57),
+			DropShadow = Color3.fromRGB(0, 0, 0)
+		}
+	end
+end
+
 local Bedol = {}
 
-function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
+function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
+	repeat wait(0.1) until KeyDec or KeyDec == true
+	
+	theme = theme or "Normal"
+	
+	local UI_THEME = GetTheme(theme)
 	local itemindex = {}
 	local Colleection = {}
 	local Windows = {
 		TOGGLE_KEY = Enum.KeyCode.X,
 	}
+	
 	local ui_val = true
 	local function ads<t...>(data,object,value)
 		table.insert(itemindex,{
@@ -120,7 +136,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 		MobileButton.Rotation = 45.000
 		MobileButton.Size = UDim2.new(0.100000001, 0, 0.100000001, 0)
 		MobileButton.SizeConstraint = Enum.SizeConstraint.RelativeYY
-		MobileButton.ZIndex = 9
+		MobileButton.ZIndex = 25
 		MobileButton.Image = "rbxassetid://10002373478"
 
 		UICorner.Parent = MobileButton
@@ -198,7 +214,9 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 	UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 		TabButtons.CanvasSize  = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y)
 	end)
-
+	
+	MovementFrame.Active = true
+	
 	ScreenGui.Parent = Core
 	ScreenGui.IgnoreGuiInset = true
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
@@ -239,7 +257,8 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 	Preview.BorderSizePixel = 0
 	Preview.Size = UDim2.new(0.300000012, 0, 1, 0)
 	Preview.ZIndex = 6
-
+	Preview.Active = true
+	
 	UICorner_2.CornerRadius = UDim.new(0.0500000007, 0)
 	UICorner_2.Parent = Preview
 
@@ -370,8 +389,8 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 		TITLE.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		TITLE.BorderSizePixel = 0
 		TITLE.Position = UDim2.new(0.449999988, 0, 0.5, 0)
-		TITLE.Size = UDim2.new(0.800000012, 0, 0.5, 0)
-		TITLE.ZIndex = 76
+		TITLE.Size = UDim2.new(0.658, 0, 0.5, 0)
+		TITLE.ZIndex = 15
 		TITLE.Font = Enum.Font.GothamBold
 		TITLE.Text = Name or "Tab"
 		TITLE.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -1079,7 +1098,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			end)
 
 			UIS.InputChanged:Connect(function(Input)
-				if danger and Input.UserInputType == Enum.UserInputType.MouseMovement then
+				if danger and (Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch) then
 					local SizeScale = math.clamp(((Input.Position.X - Showed.AbsolutePosition.X) / Showed.AbsoluteSize.X), 0, 1)
 					local Value = math.floor(((Max - Min) * SizeScale) + Min)
 					local Size = UDim2.fromScale(SizeScale, 1)
@@ -1581,6 +1600,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 		Documentation.SizeConstraint = Enum.SizeConstraint.RelativeYY
 		Documentation.ZIndex = 35
 		Documentation.AnchorPoint = Vector2.new(0.5,0.5)
+		Documentation.Active = true
 		
 		DropShadow.Name = "DropShadow"
 		DropShadow.Parent = Documentation
@@ -1809,10 +1829,271 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2)
 			toggleEvent:Fire(ui_val)
 		end
 	end)
-
+	
+	toggleEvent:Fire(false)
 	Tween(Frame,TweenInfo.new(2,Enum.EasingStyle.Quint),{Position = UDim2.new(0.5, 0, 0.5, 0)})
-
+	toggleEvent:Fire(true)
+	
 	return Windows;
 end
+
+function Bedol:LoadKey(__Title__,__desc__,funcchecker)
+	funcchecker = funcchecker or function(a) return true end
+	KeyDec = false
+	local ScreenGui = Instance.new("ScreenGui")
+	local Key = Instance.new("Frame")
+	local DropShadow = Instance.new("ImageLabel")
+	local UICorner = Instance.new("UICorner")
+	local Title = Instance.new("TextLabel")
+	local Desc = Instance.new("TextLabel")
+	local ImageLabel = Instance.new("ImageLabel")
+	local UICorner_2 = Instance.new("UICorner")
+	local PasteKeyCode = Instance.new("TextBox")
+	local UICorner_3 = Instance.new("UICorner")
+	local Send = Instance.new("TextButton")
+	local UICorner_4 = Instance.new("UICorner")
+
+	ScreenGui.Parent = Core
+	ScreenGui.ResetOnSpawn = false
+	ScreenGui.IgnoreGuiInset = true
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+	
+	Key.Name = "Key"
+	Key.Parent = ScreenGui
+	Key.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
+	Key.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Key.BorderSizePixel = 0
+	Key.Position = UDim2.new(0.347853005, 0, 0.298913002, 0)
+	Key.Size = UDim2.new(0.5, 0, 0.400000006, 0)
+	Key.SizeConstraint = Enum.SizeConstraint.RelativeYY
+	Key.ZIndex = 5
+
+	DropShadow.Name = "DropShadow"
+	DropShadow.Parent = Key
+	DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	DropShadow.BackgroundTransparency = 1.000
+	DropShadow.BorderSizePixel = 0
+	DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	DropShadow.Size = UDim2.new(1, 47, 1, 47)
+	DropShadow.ZIndex = -5
+	DropShadow.Image = "rbxassetid://6014261993"
+	DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	DropShadow.ImageTransparency = 0.500
+	DropShadow.ScaleType = Enum.ScaleType.Slice
+	DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+
+	UICorner.CornerRadius = UDim.new(0.0250000004, 0)
+	UICorner.Parent = Key
+
+	Title.Name = "Title"
+	Title.Parent = Key
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Title.BorderSizePixel = 0
+	Title.Size = UDim2.new(1.00000012, 0, 0.155197009, 0)
+	Title.ZIndex = 6
+	Title.Font = Enum.Font.GothamBold
+	Title.Text = __Title__ or "Bedol Hub"
+	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title.TextScaled = true
+	Title.TextSize = 14.000
+	Title.TextWrapped = true
+	Title.RichText = true
+	
+	Desc.Name = "Desc"
+	Desc.Parent = Key
+	Desc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Desc.BackgroundTransparency = 1.000
+	Desc.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Desc.BorderSizePixel = 0
+	Desc.Position = UDim2.new(0, 0, 0.152853265, 0)
+	Desc.Size = UDim2.new(1.00000012, 0, 0.0787703842, 0)
+	Desc.ZIndex = 6
+	Desc.Font = Enum.Font.GothamBold
+	Desc.Text = __desc__ or "Paste Key"
+	Desc.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Desc.TextScaled = true
+	Desc.TextSize = 14.000
+	Desc.TextTransparency = 0.500
+	Desc.TextWrapped = true
+	Desc.RichText = true
+	
+	ImageLabel.Parent = Key
+	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageLabel.BackgroundTransparency = 1.000
+	ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageLabel.BorderSizePixel = 0
+	ImageLabel.Position = UDim2.new(0.50000006, 0, 0.50000006, 0)
+	ImageLabel.Size = UDim2.new(0.449999988, 0, 0.449999988, 0)
+	ImageLabel.SizeConstraint = Enum.SizeConstraint.RelativeYY
+	ImageLabel.ZIndex = 7
+	ImageLabel.Image = "rbxassetid://10871266112"
+	ImageLabel.ImageTransparency = 0.200
+
+	UICorner_2.CornerRadius = UDim.new(0.0250000004, 0)
+	UICorner_2.Parent = ImageLabel
+
+	PasteKeyCode.Name = "PasteKeyCode"
+	PasteKeyCode.Parent = Key
+	PasteKeyCode.AnchorPoint = Vector2.new(0.5, 0)
+	PasteKeyCode.BackgroundColor3 = Color3.fromRGB(16, 16, 16)
+	PasteKeyCode.BackgroundTransparency = 0.400
+	PasteKeyCode.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	PasteKeyCode.BorderSizePixel = 0
+	PasteKeyCode.Position = UDim2.new(0.50000006, 0, 0.764737844, 0)
+	PasteKeyCode.Size = UDim2.new(0.75, 0, 0.100000001, 0)
+	PasteKeyCode.ZIndex = 7
+	PasteKeyCode.ClearTextOnFocus = false
+	PasteKeyCode.Font = Enum.Font.SourceSansBold
+	PasteKeyCode.PlaceholderColor3 = Color3.fromRGB(116, 116, 116)
+	PasteKeyCode.PlaceholderText = "Paste Key"
+	PasteKeyCode.Text = ""
+	PasteKeyCode.TextColor3 = Color3.fromRGB(255, 255, 255)
+	PasteKeyCode.TextScaled = true
+	PasteKeyCode.TextSize = 14.000
+	PasteKeyCode.TextWrapped = true
+
+	UICorner_3.CornerRadius = UDim.new(0.100000001, 0)
+	UICorner_3.Parent = PasteKeyCode
+
+	Send.Name = "Send"
+	Send.Parent = Key
+	Send.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	Send.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Send.BorderSizePixel = 0
+	Send.Position = UDim2.new(0.224000007, 0, 0.889999986, 0)
+	Send.Size = UDim2.new(0.550000012, 0, 0.100000001, 0)
+	Send.ZIndex = 7
+	Send.Font = Enum.Font.GothamBold
+	Send.Text = "Submit"
+	Send.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Send.TextScaled = true
+	Send.TextSize = 14.000
+	Send.TextWrapped = true
+
+	UICorner_4.CornerRadius = UDim.new(0, 4)
+	UICorner_4.Parent = Send
+	
+	local startset = function()
+		Key.Position = UDim2.new(0.347, 0,0.369, 0)
+		DropShadow.ImageTransparency = 1
+		ImageLabel.ImageTransparency = 1
+		Send.TextTransparency = 1
+		Key.BackgroundTransparency = 1
+		Send.BackgroundTransparency = 1
+		Title.TextTransparency = 1
+		Desc.TextTransparency = 1
+		PasteKeyCode.TextTransparency = 1
+		PasteKeyCode.BackgroundTransparency = 1
+		Send.BackgroundTransparency = 1
+		Send.TextTransparency = 1
+	end
+	startset()
+	local function OnStart()
+		Tween(Key,TweenInfo.new(0.35),{Position = UDim2.new(0.347853005, 0, 0.298913002, 0),BackgroundTransparency = 0})
+		Tween(DropShadow,TweenInfo.new(0.35),{ImageTransparency = 0.5})
+		Tween(ImageLabel,TweenInfo.new(0.35),{ImageTransparency = 0.2})
+		Tween(Send,TweenInfo.new(0.35),{
+			BackgroundTransparency = 0,
+			TextTransparency = 0
+		})
+		Tween(Title,TweenInfo.new(0.35),{
+			TextTransparency = 0
+		})
+		Tween(Desc,TweenInfo.new(0.35),{
+			TextTransparency = 0.5
+		})
+		Tween(PasteKeyCode,TweenInfo.new(0.35),{
+			TextTransparency = 0,
+			BackgroundTransparency = 0.4
+		})
+	end
+	
+	local function ShutDown()
+		Tween(Key,TweenInfo.new(0.35),{
+			Position = UDim2.new(0.347, 0,0.369, 0),
+			BackgroundTransparency = 1
+		})
+		Tween(DropShadow,TweenInfo.new(0.35),{ImageTransparency = 1})
+		Tween(ImageLabel,TweenInfo.new(0.35),{ImageTransparency = 1})
+		Tween(Send,TweenInfo.new(0.35),{
+			BackgroundTransparency = 1,
+			TextTransparency = 1
+		})
+		Tween(Title,TweenInfo.new(0.35),{
+			TextTransparency = 1
+		})
+		Tween(Desc,TweenInfo.new(0.35),{
+			TextTransparency = 1
+		})
+		Tween(PasteKeyCode,TweenInfo.new(0.35),{
+			TextTransparency = 1,
+			BackgroundTransparency = 1
+		})
+		wait(0.5)
+		ScreenGui:Destroy()
+	end
+	
+	local round = 0
+	wait(0.1)
+	OnStart()
+	local ischecking = false
+	
+	Send.MouseButton1Click:Connect(function()
+		if ischecking then
+			return
+		end
+		round+=1
+		Send.Text = "Checking"
+		ischecking = true
+		local value = funcchecker(PasteKeyCode.Text,round)
+		if value then
+			PasteKeyCode.TextColor3 = Color3.fromRGB(26, 255, 0)
+			Send.Text = "Pass"
+			Tween(PasteKeyCode,TweenInfo.new(0.7),{
+				TextColor3 = Color3.fromRGB(255, 255, 255)
+			})
+			Tween(Send,TweenInfo.new(0.1),{
+				TextColor3 = Color3.fromRGB(55, 255, 0)
+			})
+			wait(0.1)
+			ShutDown()
+			wait(1)
+			KeyDec = true
+			
+		else
+			PasteKeyCode.TextColor3 = Color3.fromRGB(255, 0, 4)
+			Send.Text = "wrong key"
+			Tween(PasteKeyCode,TweenInfo.new(0.7),{
+				TextColor3 = Color3.fromRGB(255, 255, 255)
+			})
+			
+			Tween(Send,TweenInfo.new(0.1),{
+				TextColor3 = Color3.fromRGB(255, 0, 4)
+			})
+			
+			Tween(Send,TweenInfo.new(0.2,Enum.EasingStyle.Bounce,Enum.EasingDirection.InOut,5),{
+				Position = UDim2.new(0.25, 0,0.89, 0)
+			})
+			
+			wait(0.4)
+			
+			Tween(Send,TweenInfo.new(0.2,Enum.EasingStyle.Back),{
+				Position = UDim2.new(0.224, 0,0.89, 0)
+			})
+			
+			Tween(Send,TweenInfo.new(0.1),{
+				TextColor3 = Color3.fromRGB(255, 255, 255)
+			})
+			
+			PasteKeyCode.Text = ""
+			Send.Text = "Submit"
+		end
+		ischecking = false
+	end)
+end
+
 
 return Bedol;
