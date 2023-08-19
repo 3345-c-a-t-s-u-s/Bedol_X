@@ -79,16 +79,16 @@ local Bedol = {}
 
 function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 	repeat wait(0.1) until KeyDec or KeyDec == true
-	
+
 	theme = theme or "Normal"
-	
+
 	local UI_THEME = GetTheme(theme)
 	local itemindex = {}
 	local Colleection = {}
 	local Windows = {
 		TOGGLE_KEY = Enum.KeyCode.X,
 	}
-	
+
 	local ui_val = true
 	local function ads<t...>(data,object,value)
 		table.insert(itemindex,{
@@ -214,9 +214,9 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 	UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 		TabButtons.CanvasSize  = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y)
 	end)
-	
+
 	MovementFrame.Active = true
-	
+
 	ScreenGui.Parent = Core
 	ScreenGui.IgnoreGuiInset = true
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
@@ -258,7 +258,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 	Preview.Size = UDim2.new(0.300000012, 0, 1, 0)
 	Preview.ZIndex = 6
 	Preview.Active = true
-	
+
 	UICorner_2.CornerRadius = UDim.new(0.0500000007, 0)
 	UICorner_2.Parent = Preview
 
@@ -389,7 +389,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 		TITLE.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		TITLE.BorderSizePixel = 0
 		TITLE.Position = UDim2.new(0.449999988, 0, 0.5, 0)
-		TITLE.Size = UDim2.new(0.658, 0, 0.5, 0)
+		TITLE.Size = UDim2.new(0.607, 0, 0.5, 0)
 		TITLE.ZIndex = 15
 		TITLE.Font = Enum.Font.GothamBold
 		TITLE.Text = Name or "Tab"
@@ -1601,7 +1601,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 		Documentation.ZIndex = 35
 		Documentation.AnchorPoint = Vector2.new(0.5,0.5)
 		Documentation.Active = true
-		
+
 		DropShadow.Name = "DropShadow"
 		DropShadow.Parent = Documentation
 		DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -1616,7 +1616,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 		DropShadow.ScaleType = Enum.ScaleType.Slice
 		DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 		DropShadow.Rotation = 0.3
-		
+
 		UICorner.CornerRadius = UDim.new(0.0250000004, 0)
 		UICorner.Parent = Documentation
 
@@ -1663,11 +1663,11 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout.Padding = UDim.new(0, 4)
-		
+
 		UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 			ScrollingFrame.CanvasSize = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y)
 		end)
-		
+
 		local function createtext()
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 			local TextLabel = Instance.new("TextLabel")
@@ -1689,10 +1689,10 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 			UIAspectRatioConstraint.Parent = TextLabel
 			UIAspectRatioConstraint.AspectRatio = 10.000
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
-			
+
 			return TextLabel
 		end
-		
+
 		NextButton.Name = "NextButton"
 		NextButton.Parent = Documentation
 		NextButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -1727,31 +1727,31 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 		DropShadow_2.ScaleType = Enum.ScaleType.Slice
 		DropShadow_2.SliceCenter = Rect.new(49, 49, 450, 450)
 		DropShadow_2.Rotation = 0.003
-		
+
 		local lines = {}
 		for line in documentationstr:gmatch("[^\n]+") do
 			table.insert(lines, line)
 		end
-		
+
 		for i,v in ipairs(lines) do
 			local txt = createtext()
-			
+
 			txt.Text = tostring(v)
 		end
-		
+
 		Tween(Documentation,TweenInfo.new(0.45,Enum.EasingStyle.Back),{Size = UDim2.new(0.449999988, 0, 0.449999988, 0)})
-		
+
 		local tg = nil
 		local ds = nil
 		local sp = nil
-		
+
 		local function slideermove(input)
 			local delta = input.Position - ds
 			local position = UDim2.new(sp.X.Scale, sp.X.Offset + delta.X,
 				sp.Y.Scale, sp.Y.Offset + delta.Y)
 			game:GetService('TweenService'):Create(Documentation, TweenInfo.new(0.1), {Position = position}):Play()
 		end
-		
+
 		Documentation.InputBegan:Connect(function(input)
 			if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
 				tg = true
@@ -1772,7 +1772,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 				end
 			end
 		end)
-		
+
 		NextButton.MouseButton1Click:Connect(function()
 			Create_Ripple(NextButton)
 			wait(0.1)
@@ -1829,11 +1829,11 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 			toggleEvent:Fire(ui_val)
 		end
 	end)
-	
+
 	toggleEvent:Fire(false)
 	Tween(Frame,TweenInfo.new(2,Enum.EasingStyle.Quint),{Position = UDim2.new(0.5, 0, 0.5, 0)})
 	toggleEvent:Fire(true)
-	
+
 	return Windows;
 end
 
@@ -1857,7 +1857,7 @@ function Bedol:LoadKey(__Title__,__desc__,funcchecker)
 	ScreenGui.ResetOnSpawn = false
 	ScreenGui.IgnoreGuiInset = true
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-	
+
 	Key.Name = "Key"
 	Key.Parent = ScreenGui
 	Key.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
@@ -1900,7 +1900,7 @@ function Bedol:LoadKey(__Title__,__desc__,funcchecker)
 	Title.TextSize = 14.000
 	Title.TextWrapped = true
 	Title.RichText = true
-	
+
 	Desc.Name = "Desc"
 	Desc.Parent = Key
 	Desc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1918,7 +1918,7 @@ function Bedol:LoadKey(__Title__,__desc__,funcchecker)
 	Desc.TextTransparency = 0.500
 	Desc.TextWrapped = true
 	Desc.RichText = true
-	
+
 	ImageLabel.Parent = Key
 	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
 	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1975,7 +1975,7 @@ function Bedol:LoadKey(__Title__,__desc__,funcchecker)
 
 	UICorner_4.CornerRadius = UDim.new(0, 4)
 	UICorner_4.Parent = Send
-	
+
 	local startset = function()
 		Key.Position = UDim2.new(0.347, 0,0.369, 0)
 		DropShadow.ImageTransparency = 1
@@ -2010,7 +2010,7 @@ function Bedol:LoadKey(__Title__,__desc__,funcchecker)
 			BackgroundTransparency = 0.4
 		})
 	end
-	
+
 	local function ShutDown()
 		Tween(Key,TweenInfo.new(0.35),{
 			Position = UDim2.new(0.347, 0,0.369, 0),
@@ -2035,12 +2035,12 @@ function Bedol:LoadKey(__Title__,__desc__,funcchecker)
 		wait(0.5)
 		ScreenGui:Destroy()
 	end
-	
+
 	local round = 0
 	wait(0.1)
 	OnStart()
 	local ischecking = false
-	
+
 	Send.MouseButton1Click:Connect(function()
 		if ischecking then
 			return
@@ -2062,32 +2062,32 @@ function Bedol:LoadKey(__Title__,__desc__,funcchecker)
 			ShutDown()
 			wait(1)
 			KeyDec = true
-			
+
 		else
 			PasteKeyCode.TextColor3 = Color3.fromRGB(255, 0, 4)
 			Send.Text = "wrong key"
 			Tween(PasteKeyCode,TweenInfo.new(0.7),{
 				TextColor3 = Color3.fromRGB(255, 255, 255)
 			})
-			
+
 			Tween(Send,TweenInfo.new(0.1),{
 				TextColor3 = Color3.fromRGB(255, 0, 4)
 			})
-			
+
 			Tween(Send,TweenInfo.new(0.2,Enum.EasingStyle.Bounce,Enum.EasingDirection.InOut,5),{
 				Position = UDim2.new(0.25, 0,0.89, 0)
 			})
-			
+
 			wait(0.4)
-			
+
 			Tween(Send,TweenInfo.new(0.2,Enum.EasingStyle.Back),{
 				Position = UDim2.new(0.224, 0,0.89, 0)
 			})
-			
+
 			Tween(Send,TweenInfo.new(0.1),{
 				TextColor3 = Color3.fromRGB(255, 255, 255)
 			})
-			
+
 			PasteKeyCode.Text = ""
 			Send.Text = "Submit"
 		end
