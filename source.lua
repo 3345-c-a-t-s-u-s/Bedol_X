@@ -1816,10 +1816,6 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 		customCursor.Image = ""
 		customCursor.Parent = ScreenGui
 
-		pcall(function()
-			game:GetService('UserInputService').OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
-		end)
-
 		local EditBouse = false
 
 		Frame.InputBegan:Connect(function(index)
@@ -1857,12 +1853,15 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 			customCursor.Image = "rbxassetid://6065775281"
 			customCursor.Position = UDim2.fromOffset(mouseLocation.X - customCursor.AbsoluteSize.X / 2, mouseLocation.Y - customCursor.AbsoluteSize.Y / 2)
 
-			if EditBouse then
-				game:GetService('UserInputService').MouseIconEnabled = false
-
+			if EditBouse and ui_val then
+				pcall(function()
+					game:GetService('UserInputService').OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+				end)
 				Tween(customCursor,TweenInfo.new(0.1),{ImageTransparency = 0}):Play()
 			else
-				game:GetService('UserInputService').MouseIconEnabled = true
+				pcall(function()
+					game:GetService('UserInputService').OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
+				end)
 				Tween(customCursor,TweenInfo.new(0.1),{ImageTransparency = 1}):Play()
 			end
 		end)
