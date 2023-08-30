@@ -1,5 +1,9 @@
 --[[
-	UI Lib by Bdol Hub
+	UI MAKE BY BEDOL HUB;
+	
+	LINK: https://github.com/3345-c-a-t-s-u-s/Bedol_X/blob/main/README.md
+	
+	GIVE MONEY FOR BUY DOMAIN!
 ]]
 
 local Core = game:FindFirstChild('CoreGui') or game:GetService('Players').LocalPlayer.PlayerGui
@@ -1385,14 +1389,6 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 				end
 			end
 
-			local toggle_val = false
-
-			Input.MouseButton1Click:Connect(function()
-				Create_Ripple(Input)
-				toggle_val = not toggle_val
-				DrpdownToggle(toggle_val)
-			end)
-
 			local function CrButton()
 				local TextButton = Instance.new("TextButton")
 				local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -1452,6 +1448,16 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 			end
 
 			ref()
+			
+			local toggle_val = false
+
+			Input.MouseButton1Click:Connect(function()
+				ref()
+				Create_Ripple(Input)
+				toggle_val = not toggle_val
+				DrpdownToggle(toggle_val)
+			end)
+			
 			local Hook = {}
 
 			function Hook:Refresh(infonew)
@@ -1790,7 +1796,87 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 			Documentation:Destroy()
 		end)
 	end
+	
+	function Windows:SetCustomMouse(on_rgb:boolean?)
+		local customCursor = Instance.new("ImageLabel")
 
+		customCursor.Size = UDim2.fromOffset(200, 200)
+		customCursor.ZIndex = 65
+		customCursor.BackgroundTransparency = 1
+		customCursor.Image = ""
+		customCursor.Parent = ScreenGui
+
+		pcall(function()
+			game:GetService('UserInputService').OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+		end)
+		
+		local EditBouse = false
+		
+		Frame.InputBegan:Connect(function(index)
+			if index.UserInputType == Enum.UserInputType.MouseMovement or index.UserInputType == Enum.UserInputType.Touch then
+				EditBouse = true
+			end
+		end)
+		
+		Frame.InputEnded:Connect(function(index)
+			if index.UserInputType == Enum.UserInputType.MouseMovement or index.UserInputType == Enum.UserInputType.Touch then
+				EditBouse = false
+			end
+		end)
+		
+		if on_rgb then
+			coroutine.wrap(function()
+				local colorx = 0
+
+				while true do task.wait(0.5)
+
+					Tween(customCursor,TweenInfo.new(0.7),{ImageColor3 = Color3.fromHSV(colorx,1,1)}):Play()
+
+					colorx = colorx + 2/255 
+					if colorx >= 1 then
+						colorx = 0
+					end
+				end
+
+			end)()
+		end
+		
+		game:GetService('RunService'):BindToRenderStep("MOUSE_EDITOR", 1, function()
+			local mouseLocation = game:GetService('UserInputService'):GetMouseLocation()
+			customCursor.Visible = true
+			customCursor.Image = "rbxassetid://6065775281"
+			customCursor.Position = UDim2.fromOffset(mouseLocation.X - customCursor.AbsoluteSize.X / 2, mouseLocation.Y - customCursor.AbsoluteSize.Y / 2)
+			
+			if EditBouse then
+				game:GetService('UserInputService').MouseIconEnabled = false
+				
+				Tween(customCursor,TweenInfo.new(0.1),{ImageTransparency = 0}):Play()
+			else
+				game:GetService('UserInputService').MouseIconEnabled = true
+				Tween(customCursor,TweenInfo.new(0.1),{ImageTransparency = 1}):Play()
+			end
+		end)
+	end
+	
+	function Windows:SetRGBShadow(speed:number?)
+		speed = speed or 0.5
+		coroutine.wrap(function()
+			local colorx = 0
+
+			while true do task.wait(speed)
+
+				Tween(DropShadow,TweenInfo.new(speed * 1.1),{ImageColor3 = Color3.fromHSV(colorx,1,1)}):Play()
+				Tween(DropShadow_2,TweenInfo.new(speed * 1.1),{ImageColor3 = Color3.fromHSV(colorx,1,0.5)}):Play()
+
+				colorx = colorx + 2/255 
+				if colorx >= 1 then
+					colorx = 0
+				end
+			end
+
+		end)()
+	end
+	
 	local dragToggle = nil
 	local dragStart = nil
 	local startPos = nil
