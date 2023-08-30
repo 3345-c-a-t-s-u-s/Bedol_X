@@ -3,14 +3,13 @@
 
 
 ## Source Link
-[https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Bedol_X/main/source.lua](https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Bedol_X/main/source.lua)
+[Here](https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Bedol_X/main/source.lua)
 
 ### Main Code
 ```lua
-local UI = require(script.Parent)
+local UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Bedol_X/main/source.lua"))()
 
 local window = UI:Window("Bedol Hub UI","UI Test by me")
-
 
 --[[
 	- window
@@ -20,7 +19,14 @@ local window = UI:Window("Bedol Hub UI","UI Test by me")
 ]]
 
 -- set key toggle
+
 window.TOGGLE_KEY = Enum.KeyCode.X
+
+-- color
+
+window:SetRGBShadow(0.001)
+
+window:SetCustomMouse(true)
 
 -- create documentation
 
@@ -41,6 +47,8 @@ tab:AddTitle('Esg')
 tab:NewButton('Button',function()
 	print('f')
 end)
+
+-- use - :Fire()
 
 tab:NewToggle('Toggle',false,function(b)
 	print(b)
@@ -63,6 +71,7 @@ tab:NewDropdown('db',{"1","2","3"},function(ds)
 	print(ds)
 end)
 
+-- have auto refresh
 -- use - :Refresh(new list)
 -- use - :Set(name)
 
