@@ -1128,7 +1128,8 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 			return Hook;
 		end
 
-		function Tab:NewDropdown<assets...>(name:string,info:{string},callback)
+		function Tab:NewDropdown<assets...>(name:string,info:{string},callback,auto_ref)
+			
 			info = info or {}
 			callback = callback or function() end
 
@@ -1437,18 +1438,27 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 					end)
 				end
 			end
-
+			
+			local function refreshData()
+				if auto_ref then
+					info = auto_ref()
+				end
+			end
+			
 			local function ref()
+				refreshData()
+				
 				for i,v : TextButton in ipairs(ScrollingDropdown:GetChildren()) do
 					if v:isA('TextButton') then
 						v:Destroy()
 					end
 				end
+
 				AddresButton()
 			end
 
 			ref()
-			
+
 			local toggle_val = false
 
 			Input.MouseButton1Click:Connect(function()
@@ -1457,7 +1467,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 				toggle_val = not toggle_val
 				DrpdownToggle(toggle_val)
 			end)
-			
+
 			local Hook = {}
 
 			function Hook:Refresh(infonew)
@@ -1796,7 +1806,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 			Documentation:Destroy()
 		end)
 	end
-	
+
 	function Windows:SetCustomMouse(on_rgb:boolean?)
 		local customCursor = Instance.new("ImageLabel")
 
@@ -1809,21 +1819,21 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 		pcall(function()
 			game:GetService('UserInputService').OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 		end)
-		
+
 		local EditBouse = false
-		
+
 		Frame.InputBegan:Connect(function(index)
 			if index.UserInputType == Enum.UserInputType.MouseMovement or index.UserInputType == Enum.UserInputType.Touch then
 				EditBouse = true
 			end
 		end)
-		
+
 		Frame.InputEnded:Connect(function(index)
 			if index.UserInputType == Enum.UserInputType.MouseMovement or index.UserInputType == Enum.UserInputType.Touch then
 				EditBouse = false
 			end
 		end)
-		
+
 		if on_rgb then
 			coroutine.wrap(function()
 				local colorx = 0
@@ -1840,16 +1850,16 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 
 			end)()
 		end
-		
+
 		game:GetService('RunService'):BindToRenderStep("MOUSE_EDITOR", 1, function()
 			local mouseLocation = game:GetService('UserInputService'):GetMouseLocation()
 			customCursor.Visible = true
 			customCursor.Image = "rbxassetid://6065775281"
 			customCursor.Position = UDim2.fromOffset(mouseLocation.X - customCursor.AbsoluteSize.X / 2, mouseLocation.Y - customCursor.AbsoluteSize.Y / 2)
-			
+
 			if EditBouse then
 				game:GetService('UserInputService').MouseIconEnabled = false
-				
+
 				Tween(customCursor,TweenInfo.new(0.1),{ImageTransparency = 0}):Play()
 			else
 				game:GetService('UserInputService').MouseIconEnabled = true
@@ -1857,7 +1867,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 			end
 		end)
 	end
-	
+
 	function Windows:SetRGBShadow(speed:number?)
 		speed = speed or 0.5
 		coroutine.wrap(function()
@@ -1876,7 +1886,7 @@ function Bedol:Window<index...>(name:string,decs:string,SizeConfix:UDim2,theme)
 
 		end)()
 	end
-	
+
 	local dragToggle = nil
 	local dragStart = nil
 	local startPos = nil
